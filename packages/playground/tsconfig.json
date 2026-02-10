@@ -1,0 +1,14 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "composite": true,
+    "baseUrl": ".",
+    "paths": {
+      "@my/ui": ["../ui/src"]
+    }
+  },
+  "include": ["src"],
+  "references": [
+    { "path": "../ui" }
+  ]
+}

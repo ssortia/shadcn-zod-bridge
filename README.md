@@ -33,7 +33,7 @@ pnpm --filter playground dev
 
 - **Сборка**: tsup с поддержкой ESM/CJS и TypeScript деклараций
 - **Внешние зависимости**: React и react-dom не включаются в бандл
-- **Алиасы**: Playground использует алиас `@my/ui` для импорта из `../ui/src`
+- **Алиасы**: Playground использует алиас `@szd/ui` для импорта из `../ui/src`
 - **Экспорты**: Все компоненты экспортируются через `packages/ui/src/index.ts`
 - **TypeScript**: Конфигурация с project references для корректной работы workspace
 
@@ -49,5 +49,5 @@ pnpm --filter playground dev
 После сборки библиотеку можно импортировать:
 
 ```tsx
-import { Button } from '@my/ui'
+import { Button } from '@szd/ui'
 ```

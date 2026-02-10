@@ -4,7 +4,7 @@
     "composite": true,
     "baseUrl": ".",
     "paths": {
-      "@my/ui": ["../ui/src"]
+      "@szd/ui": ["../ui/src"]
     }
   },
   "include": ["src"],

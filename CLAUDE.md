@@ -25,6 +25,6 @@ This is a monorepo UI library template using pnpm workspaces with two main packa
 
 - The UI library uses tsup for bundling with dual ESM/CJS output
 - React and react-dom are externalized in the build to avoid bundling conflicts
-- The playground uses Vite with a path alias `@my/ui` that resolves to `../ui/src`
+- The playground uses Vite with a path alias `@szd/ui` that resolves to `../ui/src`
 - Components are exported from `packages/ui/src/index.ts`
 - TypeScript configurations use project references for proper workspace linking

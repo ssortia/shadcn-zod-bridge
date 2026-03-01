@@ -12,14 +12,16 @@ export interface TextFieldProps<T extends FieldValues = FieldValues>
 export function TextField<T extends FieldValues = FieldValues>({
   type = "text",
   placeholder,
+  required,
   ...props
 }: TextFieldProps<T>) {
   return (
-    <FieldWrapper {...props}>
+    <FieldWrapper required={required} {...props}>
       {(field) => (
         <Input
           type={type}
           placeholder={placeholder}
+          aria-required={required || undefined}
           value={(field.value as string) ?? ""}
           onChange={field.onChange}
           onBlur={field.onBlur}

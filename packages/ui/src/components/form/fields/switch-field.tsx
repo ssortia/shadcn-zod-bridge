@@ -6,15 +6,17 @@ import type { BaseFieldProps } from "../types";
 export type SwitchFieldProps<T extends FieldValues = FieldValues> =
   BaseFieldProps<T>;
 
-export function SwitchField<T extends FieldValues = FieldValues>(
-  props: SwitchFieldProps<T>
-) {
+export function SwitchField<T extends FieldValues = FieldValues>({
+  required,
+  ...props
+}: SwitchFieldProps<T>) {
   return (
-    <FieldWrapper {...props}>
+    <FieldWrapper required={required} {...props}>
       {(field) => (
         <Switch
           checked={field.value as boolean}
           onCheckedChange={field.onChange}
+          aria-required={required || undefined}
           ref={field.ref as React.RefCallback<HTMLButtonElement>}
           disabled={field.disabled}
         />

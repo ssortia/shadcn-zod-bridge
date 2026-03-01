@@ -19,16 +19,17 @@ export function ZodForm<T extends ZodType<FieldValues>>({
   children,
   className,
 }: ZodFormProps<T>) {
+  // zodResolver has a type incompatibility with zod v4 generics in @hookform/resolvers.
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const form = useForm<z.infer<T>>({
-    resolver: zodResolver(schema as any) as any,
+    resolver: zodResolver(schema as any),
     defaultValues,
   });
 
   return (
-    <FormProvider {...(form as any)}>
+    <FormProvider {...form}>
       <form
-        onSubmit={form.handleSubmit(onSubmit as any)}
+        onSubmit={form.handleSubmit(onSubmit)}
         className={cn("space-y-6", className)}
       >
         {children}

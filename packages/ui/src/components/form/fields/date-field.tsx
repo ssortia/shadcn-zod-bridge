@@ -16,20 +16,25 @@ export interface DateFieldProps<T extends FieldValues = FieldValues>
 
 export function DateField<T extends FieldValues = FieldValues>({
   placeholder = "Pick a date",
+  required,
   ...props
 }: DateFieldProps<T>) {
   const [open, setOpen] = React.useState(false);
 
   return (
-    <FieldWrapper {...props}>
+    <FieldWrapper required={required} {...props}>
       {(field) => {
-        const date = field.value instanceof Date ? field.value : field.value ? new Date(field.value as string) : undefined;
+        const rawDate = field.value instanceof Date
+          ? field.value
+          : field.value ? new Date(field.value as string) : undefined;
+        const date = rawDate && !isNaN(rawDate.getTime()) ? rawDate : undefined;
 
         return (
           <Popover open={open} onOpenChange={setOpen}>
             <PopoverTrigger asChild>
               <Button
                 variant="outline"
+                aria-required={required || undefined}
                 className={cn(
                   "w-full justify-start text-left font-normal",
                   !date && "text-muted-foreground"

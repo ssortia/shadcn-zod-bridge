@@ -18,17 +18,18 @@ export interface SelectFieldProps<T extends FieldValues = FieldValues>
 export function SelectField<T extends FieldValues = FieldValues>({
   placeholder,
   options,
+  required,
   ...props
 }: SelectFieldProps<T>) {
   return (
-    <FieldWrapper {...props}>
+    <FieldWrapper required={required} {...props}>
       {(field) => (
         <Select
           value={(field.value as string) ?? ""}
           onValueChange={field.onChange}
           disabled={field.disabled}
         >
-          <SelectTrigger className="w-full">
+          <SelectTrigger className="w-full" aria-required={required || undefined}>
             <SelectValue placeholder={placeholder} />
           </SelectTrigger>
           <SelectContent>

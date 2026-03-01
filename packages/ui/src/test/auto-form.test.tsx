@@ -144,4 +144,52 @@ describe("AutoForm", () => {
     ).toBeInTheDocument();
     expect(screen.queryByRole("button", { name: "Submit" })).not.toBeInTheDocument();
   });
+
+  it("throws when schema is not ZodObject", () => {
+    const schema = z.string() as unknown as z.ZodObject<z.ZodRawShape>;
+
+    expect(() =>
+      render(<AutoForm schema={schema} onSubmit={() => {}} />)
+    ).toThrow(/AutoForm requires a z\.object\(\) schema/);
+  });
+
+  it("renders textarea when fieldType is textarea", () => {
+    const schema = z.object({ bio: z.string() });
+
+    render(
+      <AutoForm
+        schema={schema}
+        onSubmit={() => {}}
+        fieldConfig={{ bio: { fieldType: "textarea", label: "Bio" } }}
+      />
+    );
+
+    // getByLabelText matches the textarea by its associated label text
+    const el = screen.getByLabelText(/Bio/);
+    expect(el.tagName.toLowerCase()).toBe("textarea");
+  });
+
+  it("renders switch when fieldType is switch", () => {
+    const schema = z.object({ active: z.boolean() });
+
+    render(
+      <AutoForm
+        schema={schema}
+        onSubmit={() => {}}
+        fieldConfig={{ active: { fieldType: "switch", label: "Active" } }}
+      />
+    );
+
+    expect(screen.getByRole("switch")).toBeInTheDocument();
+  });
+
+  it("converts abbreviation camelCase to Title Case labels (userURL → User URL)", () => {
+    const schema = z.object({
+      userURL: z.string(),
+    });
+
+    render(<AutoForm schema={schema} onSubmit={() => {}} />);
+
+    expect(screen.getByText("User URL")).toBeInTheDocument();
+  });
 });

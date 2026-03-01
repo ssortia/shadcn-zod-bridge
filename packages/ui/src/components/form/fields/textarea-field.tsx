@@ -12,13 +12,15 @@ export interface TextareaFieldProps<T extends FieldValues = FieldValues>
 export function TextareaField<T extends FieldValues = FieldValues>({
   placeholder,
   rows,
+  required,
   ...props
 }: TextareaFieldProps<T>) {
   return (
-    <FieldWrapper {...props}>
+    <FieldWrapper required={required} {...props}>
       {(field) => (
         <Textarea
           placeholder={placeholder}
+          aria-required={required || undefined}
           rows={rows}
           value={(field.value as string) ?? ""}
           onChange={field.onChange}

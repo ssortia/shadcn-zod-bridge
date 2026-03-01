@@ -16,14 +16,16 @@ export function NumberField<T extends FieldValues = FieldValues>({
   min,
   max,
   step,
+  required,
   ...props
 }: NumberFieldProps<T>) {
   return (
-    <FieldWrapper {...props}>
+    <FieldWrapper required={required} {...props}>
       {(field) => (
         <Input
           type="number"
           placeholder={placeholder}
+          aria-required={required || undefined}
           min={min}
           max={max}
           step={step}

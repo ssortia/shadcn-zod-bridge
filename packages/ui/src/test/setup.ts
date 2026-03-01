@@ -9,6 +9,9 @@ globalThis.ResizeObserver = class ResizeObserver {
   disconnect() {}
 }
 
+// Polyfill scrollIntoView for cmdk (Command component) in jsdom
+Element.prototype.scrollIntoView = () => {}
+
 // Cleanup after each test case
 afterEach(() => {
   cleanup()

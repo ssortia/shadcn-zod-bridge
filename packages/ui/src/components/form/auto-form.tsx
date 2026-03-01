@@ -44,8 +44,9 @@ export interface AutoFormProps<T extends ZodType<FieldValues>>
 
 function toTitleCase(str: string): string {
   return str
-    .replace(/([A-Z])/g, " $1")
-    .replace(/[_-]/g, " ")
+    .replace(/([A-Z]+)([A-Z][a-z])/g, "$1 $2") // "URLPath" → "URL Path"
+    .replace(/([a-z\d])([A-Z])/g, "$1 $2")      // "camelCase" → "camel Case"
+    .replace(/[_-]+/g, " ")
     .replace(/^\w/, (c) => c.toUpperCase())
     .trim();
 }
@@ -174,8 +175,10 @@ function inferField(
   }
 
   if (inner instanceof z.ZodEnum) {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const entries = (inner as any)._def.entries as Record<string, string>;
+    // Zod v4 exposes no public accessor for enum members.
+    // _def.entries is the stable internal Record documented in CLAUDE.md.
+    type ZodEnumDef = { _def: { entries: Record<string, string> } };
+    const entries = (inner as unknown as ZodEnumDef)._def.entries;
     const values = Object.values(entries);
     const options: SelectOption[] =
       config?.options ??
@@ -226,6 +229,12 @@ export function AutoForm<T extends ZodType<FieldValues>>({
   children,
   ...formProps
 }: AutoFormProps<T>) {
+  if (!(schema instanceof z.ZodObject)) {
+    throw new Error(
+      `AutoForm requires a z.object() schema. Received: ${(schema as z.ZodType).constructor?.name ?? typeof schema}`
+    );
+  }
+
   const shape = (schema as unknown as z.ZodObject<z.ZodRawShape>).shape;
 
   return (

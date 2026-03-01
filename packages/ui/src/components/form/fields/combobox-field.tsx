@@ -28,12 +28,13 @@ export function ComboboxField<T extends FieldValues = FieldValues>({
   searchPlaceholder = "Search...",
   emptyMessage = "No results found.",
   options,
+  required,
   ...props
 }: ComboboxFieldProps<T>) {
   const [open, setOpen] = React.useState(false);
 
   return (
-    <FieldWrapper {...props}>
+    <FieldWrapper required={required} {...props}>
       {(field) => {
         const selectedLabel = options.find(
           (opt) => opt.value === field.value
@@ -46,6 +47,7 @@ export function ComboboxField<T extends FieldValues = FieldValues>({
                 variant="outline"
                 role="combobox"
                 aria-expanded={open}
+                aria-required={required || undefined}
                 className={cn(
                   "w-full justify-between",
                   !field.value && "text-muted-foreground"

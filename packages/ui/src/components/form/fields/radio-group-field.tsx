@@ -11,14 +11,16 @@ export interface RadioGroupFieldProps<T extends FieldValues = FieldValues>
 
 export function RadioGroupField<T extends FieldValues = FieldValues>({
   options,
+  required,
   ...props
 }: RadioGroupFieldProps<T>) {
   return (
-    <FieldWrapper {...props}>
+    <FieldWrapper required={required} {...props}>
       {(field) => (
         <RadioGroup
           value={(field.value as string) ?? ""}
           onValueChange={field.onChange}
+          aria-required={required || undefined}
           disabled={field.disabled}
         >
           {options.map((option) => (

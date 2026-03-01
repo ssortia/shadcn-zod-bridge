@@ -2,19 +2,33 @@
   "name": "@ssortia/shadcn-zod-bridge",
   "version": "0.1.0",
   "description": "Declarative form library built on Zod schemas and shadcn/ui components",
-  "keywords": ["react", "form", "zod", "shadcn", "shadcn-ui", "react-hook-form", "autoform", "typescript", "validation"],
+  "keywords": [
+    "react",
+    "form",
+    "zod",
+    "shadcn",
+    "shadcn-ui",
+    "react-hook-form",
+    "autoform",
+    "typescript",
+    "validation"
+  ],
   "author": "ssortia",
   "license": "MIT",
   "homepage": "https://github.com/ssortia/shadcn-zod-bridge#readme",
   "repository": {
     "type": "git",
-    "url": "https://github.com/ssortia/shadcn-zod-bridge.git"
+    "url": "git+https://github.com/ssortia/shadcn-zod-bridge.git"
   },
-  "publishConfig": { "access": "public" },
+  "publishConfig": {
+    "access": "public"
+  },
   "main": "dist/index.js",
   "module": "dist/index.mjs",
   "types": "dist/src/index.d.ts",
-  "sideEffects": ["dist/*.css"],
+  "sideEffects": [
+    "dist/*.css"
+  ],
   "exports": {
     ".": {
       "types": "./dist/src/index.d.ts",

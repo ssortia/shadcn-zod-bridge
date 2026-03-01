@@ -12,4 +12,5 @@ export default defineConfig({
       '@': path.resolve(__dirname, 'src'),
     };
   },
+  onSuccess: 'tailwindcss -i ./src/styles.css -o ./dist/index.css',
 });
